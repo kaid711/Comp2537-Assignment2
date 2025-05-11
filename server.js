@@ -55,14 +55,14 @@ function isAdmin(req, res, next) {
   next();
 }
 
-// Home page
+// Home
 app.get('/', (req, res) => {
-  res.render('index', { username: req.session.username });
+  res.render('index', { username: req.session.username, user_type: req.session.user_type });
 });
 
-// Signup page
+// Signup
 app.get('/signup', (req, res) => {
-  res.render('signup', { username: req.session.username });
+  res.render('signup', { username: req.session.username, user_type: req.session.user_type });
 });
 
 // Signup POST
@@ -117,9 +117,9 @@ app.post('/signup', async (req, res) => {
   res.redirect('/members');
 });
 
-// Login page
+// Login
 app.get('/login', (req, res) => {
-  res.render('login', { username: req.session.username });
+  res.render('login', { username: req.session.username, user_type: req.session.user_type });
 });
 
 // Login POST
@@ -152,21 +152,21 @@ app.post('/login', async (req, res) => {
   res.redirect('/members');
 });
 
-// Members page
+// Members
 app.get('/members', isAuthenticated, (req, res) => {
   const imageDir = path.join(__dirname, 'public/images');
   const images = fs.readdirSync(imageDir);
-  res.render('members', { username: req.session.username, images });
+  res.render('members', { username: req.session.username, user_type: req.session.user_type, images });
 });
 
-// Admin page
+// Admin
 app.get('/admin', isAuthenticated, async (req, res) => {
   if (req.session.user_type !== 'admin') {
-    return res.status(403).send('<h1>403 Forbidden</h1><p>You are not authorized to view this page.</p><a href="/">Go Home</a>');
-  }
+  return res.status(403).render('403', { username: req.session.username, user_type: req.session.user_type });
+}
 
   const users = await usersCollection.find({}).toArray();
-  res.render('admin', { users, username: req.session.username });
+  res.render('admin', { username: req.session.username, user_type: req.session.user_type, users });
 });
 
 // Promote user
@@ -195,7 +195,7 @@ app.get('/logout', (req, res) => {
 
 // 404
 app.use((req, res) => {
-  res.status(404).render('404', { username: req.session.username });
+  res.status(404).render('404', { username: req.session.username, user_type: req.session.user_type });
 });
 
 app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));

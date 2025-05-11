@@ -2,12 +2,16 @@
 
 <h1 class="text-center">Welcome, <%= username %>!</h1>
 
-<div class="row">
+<div class="row mt-4">
   <% images.forEach(img => { %>
-    <div class="col-12 col-md-4 mb-4">
+    <div class="col-12 col-md-4 mb-4 d-flex justify-content-center">
       <img src="/images/<%= img %>" class="img-fluid rounded" alt="Random Image">
     </div>
   <% }); %>
+</div>
+
+<div class="text-center mt-3">
+  <a href="/logout" class="btn btn-danger">Sign Out</a>
 </div>
 
 <%- include('templates/footer') %>
