@@ -50,10 +50,11 @@ function isAuthenticated(req, res, next) {
 // Middleware checks if user is admin
 function isAdmin(req, res, next) {
   if (req.session.user_type !== 'admin') {
-    return res.status(403).send('<h1>403 Forbidden</h1><p>You are not authorized to view this page.</p><a href="/">Go Home</a>');
+    return res.status(403).render('403', { username: req.session.username, user_type: req.session.user_type });
   }
   next();
 }
+
 
 // Home
 app.get('/', (req, res) => {
@@ -159,15 +160,17 @@ app.get('/members', isAuthenticated, (req, res) => {
   res.render('members', { username: req.session.username, user_type: req.session.user_type, images });
 });
 
-// Admin
-app.get('/admin', isAuthenticated, async (req, res) => {
-  if (req.session.user_type !== 'admin') {
-  return res.status(403).render('403', { username: req.session.username, user_type: req.session.user_type });
-}
-
+// Admin Page
+app.get('/admin', isAuthenticated, isAdmin, async (req, res) => {
   const users = await usersCollection.find({}).toArray();
-  res.render('admin', { username: req.session.username, user_type: req.session.user_type, users });
+  
+  res.render('admin', { 
+    username: req.session.username, 
+    user_type: req.session.user_type, 
+    users 
+  });
 });
+
 
 // Promote user
 app.get('/promote/:id', isAuthenticated, isAdmin, async (req, res) => {
