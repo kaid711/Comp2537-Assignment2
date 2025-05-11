@@ -39,7 +39,7 @@ app.use(session({
   })
 }));
 
-// Middleware to check if user is logged in
+// Middleware checks if user is logged in
 function isAuthenticated(req, res, next) {
   if (!req.session.username) {
     return res.redirect('/login');
@@ -47,7 +47,7 @@ function isAuthenticated(req, res, next) {
   next();
 }
 
-// Middleware to check if user is admin
+// Middleware checks if user is admin
 function isAdmin(req, res, next) {
   if (req.session.user_type !== 'admin') {
     return res.status(403).send('<h1>403 Forbidden</h1><p>You are not authorized to view this page.</p><a href="/">Go Home</a>');
