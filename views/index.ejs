@@ -1,0 +1,18 @@
+<%- include('templates/header', { title: "Home", username: username }) %>
+
+<h1 class="text-center">Welcome to MyApp!</h1>
+
+<% if (!username) { %>
+  <div class="text-center">
+    <a href="/signup" class="btn btn-primary">Sign Up</a>
+    <a href="/login" class="btn btn-success">Login</a>
+  </div>
+<% } else { %>
+  <div class="text-center">
+    <h2>Hello, <%= username %>!</h2>
+    <a href="/members" class="btn btn-primary">Go to Members Page</a>
+    <a href="/logout" class="btn btn-danger">Logout</a>
+  </div>
+<% } %>
+
+<%- include('templates/footer') %>

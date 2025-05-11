@@ -1,0 +1,17 @@
+<%- include('templates/header', { title: "Login", username: username }) %>
+
+<h1 class="text-center">Login</h1>
+
+<form action="/login" method="POST" class="mx-auto" style="max-width: 400px;">
+  <div class="mb-3">
+    <label class="form-label">Email</label>
+    <input name="email" type="email" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Password</label>
+    <input name="password" type="password" class="form-control" required>
+  </div>
+  <button class="btn btn-success w-100">Log In</button>
+</form>
+
+<%- include('templates/footer') %>

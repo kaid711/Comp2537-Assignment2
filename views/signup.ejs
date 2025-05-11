@@ -1,0 +1,21 @@
+<%- include('templates/header', { title: "Sign Up", username: username }) %>
+
+<h1 class="text-center">Sign Up</h1>
+
+<form action="/signup" method="POST" class="mx-auto" style="max-width: 400px;">
+  <div class="mb-3">
+    <label class="form-label">Name</label>
+    <input name="name" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Email</label>
+    <input name="email" type="email" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Password</label>
+    <input name="password" type="password" class="form-control" required>
+  </div>
+  <button class="btn btn-primary w-100">Register</button>
+</form>
+
+<%- include('templates/footer') %>

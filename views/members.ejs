@@ -1,0 +1,13 @@
+<%- include('templates/header', { title: "Members", username: username }) %>
+
+<h1 class="text-center">Welcome, <%= username %>!</h1>
+
+<div class="row">
+  <% images.forEach(img => { %>
+    <div class="col-12 col-md-4 mb-4">
+      <img src="/images/<%= img %>" class="img-fluid rounded" alt="Random Image">
+    </div>
+  <% }); %>
+</div>
+
+<%- include('templates/footer') %>
